@@ -18,13 +18,17 @@
             //var socket = io('http://sharemyplace.azurewebsites.net/');
             var socket = io();
             socket.on('emit_message', function (msg) {
-                $('#messages').append($('<li>').html(msg['id']+'<br>lat: '+msg['lat']+', lng: '+msg['lng']+'<br>'+msg['address']));
+                $('#messages').append($('<li>').html(msg['id'] + '<br>lat: ' + msg['lat'] + ', lng: ' + msg['lng'] + '<br>' + msg['address']));
                 $(document).scrollTop($(document).height());
             });
             socket.on('conect_message', function (msg) {
                 $('#messages').append($('<li>').html(msg));
                 $(document).scrollTop($(document).height());
             });
+
+            setInterval(function () {
+                socket.emit('on_message', { id='chuongnh', lat: 1.0, lng: 2.0, address: 'unknown' });
+            }, 1000);
         });
     </script>
 </body>
