@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Place</title>
+</head>
+
+<body>
+    <p id="messages">Hello world! I'm chuongnh!</p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            //var socket = io('http://sharemyplace.azurewebsites.net/');
+            var socket = io();
+            socket.on('emit_message', function (msg) {
+                $('#messages').append($('<li>').html(msg['id']+'<br>lat: '+msg['lat']+', lng: '+msg['lng']+'<br>'+msg['address']));
+                $(document).scrollTop($(document).height());
+            });
+        });
+    </script>
+</body>
+
+</html>
