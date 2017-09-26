@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
     socket.on('on_message', function (msg) {
         //socket.broadcast.emit('emit_message', msg);
         console.log(msg['id'] + '\nlat: ' + msg['lat'] + ', lng: ' + msg['lng'] + '\n' + msg['address']);
-        io.emit('emit_message', msg);
+        socket.broadcast.emit('emit_message', msg);
     });
 });
 
