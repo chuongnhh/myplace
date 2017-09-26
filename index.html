@@ -9,16 +9,17 @@
 </head>
 
 <body>
-    <p id="messages">Hello world! I'm chuongnh!</p>
+    <p id="messages"></p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script>
         $(function () {
             //var socket = io('http://sharemyplace.azurewebsites.net/');
             var socket = io();
             socket.on('emit_message', function (msg) {
-                $('#messages').append($('<li>').html(msg['id'] + '<br>lat: ' + msg['lat'] + ', lng: ' + msg['lng'] + '<br>' + msg['address']));
+                $('#messages').append($('<li>').html(msg['full_name'] + '<br>lat: ' + msg['lat'] + ', lng: ' + msg['lng'] + '<br>' + msg['address']));
                 $(document).scrollTop($(document).height());
             });
             socket.on('conect_message', function (msg) {
@@ -27,11 +28,14 @@
             });
 
             setInterval(function () {
-                socket.emit('on_message', { id: 'chuongnh', lat: 10.774596, lng: 106.667954, address: 'unknown' });
-            }, 1000);
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
 
-            setInterval(function () {
-                socket.emit('on_message', { id: 'bbbbbbbbbbb', lat:10.849409, lng: 106.753706, address: 'unknown' });
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+                        socket.emit('on_message', { user_name: "chuongnh", lat: lat, lng: lng, address: 'unknown' });
+                    });
+                }
             }, 1000);
         });
     </script>
