@@ -27,9 +27,12 @@
             });
 
             setInterval(function () {
-                 socket.emit('on_message', { id: 'chuongnh', lat: 10.774596, lng: 106.667954, address: 'unknown' });
-             }, 1000);
+                socket.emit('on_message', { id: 'chuongnh', lat: 10.774596, lng: 106.667954, address: 'unknown' });
+            }, 1000);
 
+            setInterval(function () {
+                socket.emit('on_message', { id: 'chuongnh', lat:10.849409, lng: 106.753706, address: 'unknown' });
+            }, 1000);
         });
     </script>
 </body>
